@@ -1,0 +1,87 @@
+.breadcrumb {
+    font-size: 18px;
+    color: #000;
+    margin-top: 10px;
+}
+
+.breadcrumb-current {
+    color: #00AF54;
+}
+
+.notifications-container {
+    margin: 20px; /* Adjust as needed */
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px; 
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #FFFFFF;
+    gap: 16px;
+}
+
+.notification-icon {
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.notification-icon img {
+    width: 35px;
+    height: 35px;
+}
+
+.green-bg {
+    background-color: #E1FFF0;
+}
+
+.red-bg {
+    background-color: #FFF7F7;
+}
+
+.yellow-bg {
+    background-color: #FCFFF3;
+}
+
+.notification-content {
+    flex-grow: 1;
+}
+
+.product--id, .notification--type {
+    color: #00AF54;
+    font-weight: 500;
+}
+
+.notification-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.notification-description {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.notification-time {
+    font-size: 0.9em; /* Adjust as needed */
+    color: #9C9A9A; /* Grey text for time */
+}
+
+.dashboard p {
+    color: #000;
+    font-weight: 400;
+}
+
+.notification p {
+    color: #00AF54;
+    font-weight: 700;
+}
+
+
+

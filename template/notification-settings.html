@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/notification.css">
+    <link rel="stylesheet" href="/static/css/notify-setting.css">
+    <title>MarketPulse - Settings</title>
+</head>
+
+
+<body>
+    <div class="dashboard--container">
+        <div class="sidebar--section">
+            <div class="sidebar--logo">
+                <img src="/static/img/logo.svg" alt="logo">
+                <h1>MarketPulse</h1>
+            </div>
+            <div class="sidebar--links">
+                <a href="{% url 'index' %}"  class="links">
+                    <div class="dashboard">
+                        <img src="/static/img/dashboard.svg" alt="dashboard--icon">
+                        <p>Dashboard</p>
+                    </div>
+                </a>
+                <a href="{% url 'notifications' %}"  class="links">
+                    <div class="notification">
+                        <img src="/static/img/notification.svg" alt="notification--icon">
+                        <p>Notifications</p>
+                    </div>
+                </a>
+                <a href="{% url 'settings' %}"  class="links">
+                    <div class="settings">
+                        <img src="/static/img/setting-notify.svg" alt="settings--icon">
+                        <p>Account Settings</p>
+                    </div>
+                </a>
+            </div>
+            <!-- <a href="#"> -->
+                <div class="logout">
+                    <img src="/static/img/logout.svg" alt="logout--icon">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            <!-- </a> -->
+        </div>
+
+        <div class="main--content">
+            <header class="header--section">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
+                </div>
+
+                <div class="profile--section">
+                    <a href="{% url 'notifications' %}" class="notify--icon"><i class="far fa-bell"></i></a>
+                    <img src="/static/img/Line.svg" alt="dividing line">
+                    <a href="{% url 'settings' %}" class="header--profile">
+                        <div>
+                            <h4>{{ user_name }}</h4>
+                            <p>{{ user_group }}</p>
+                        </div>
+                        <img src="/static/img/profile.jpg" alt="user profile icon">
+                    </a>
+                </div>
+            </header>
+
+            <div class="content">
+                <section>
+                    <div class="header-container">
+                        <h1 class="header-title">Settings</h1>
+                        <div class="breadcrumb">
+                            <!-- <a href="/dashboard" class="breadcrumb-link"> </a> -->
+                                Dashboard / Notification /
+                            <span class="breadcrumb-current">Notification Preferences</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="settings-container">
+                        <aside class="sidebar">
+                            <ul class="menu">
+                                <li><a href="{% url 'settings' %}">Profile</a></li>
+                                <li class="active">
+                                    <img src="/static/img/arrow.svg" alt="arrow">
+                                    <a href="{% url 'notification-settings' %}">Notification Preferences</a>
+                                </li>
+                                <li><a href="{% url 'security-settings' %}">Security</a></li>
+                            </ul>
+                        </aside>
+                        <section class="notification-settings">
+                            <div class="settings-options">
+                                <h2 style="color: #00AF54;">MarketPulse Updates</h2>
+                                <div class="toggle-buttons">
+                                    <div class="toggle-button email">
+                                        <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+                                        <p>Email</p>
+                                    </div>
+                                    <div class="toggle-button push">
+                                        <i class="fa fa-mobile" aria-hidden="true"></i>
+                                        <p>Push</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-options">
+                                <div class="settings--title">
+                                    <h2>Product Expiry Alerts</h2>
+                                     <p>Updates about when a certain product is nearly expiration date</p>
+                                </div>
+                                    <div class="toggle-buttons">
+                                        <input type="checkbox">
+                                        <input type="checkbox">
+                                    </div>
+                            </div>
+
+                            <div class="settings-options">
+                                <div class="settings--title">
+                                    <h2>Stock Alerts</h2>
+                                    <p>Updates about when items are low in stock or when certain products are not moving and may need promotional attention.</p>
+                                </div>
+                                <div class="toggle-buttons">
+                                    <input type="checkbox">
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+
+                            <div class="settings-options">
+                                <div class="settings--title">
+                                    <h2>Demand Forecast Warnings</h2>
+                                    <p>Alerts based on predictive analytics for inventory, suggesting when to order more stock based on trends.</p>
+                                </div>
+                                <div class="toggle-buttons">
+                                    <input type="checkbox">
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+
+                            <div class="settings-options">
+                                <div class="settings--title">
+                                    <h2>Seasonal Reminders</h2>
+                                    <p>Updates about adjusting inventory in preparation for seasonal changes or holiday periods.</p>
+                                </div>
+                                <div class="toggle-buttons">
+                                    <input type="checkbox">
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="settings-actions">
+                                <button class="cancel">Cancel</button>
+                                <button class="save">Save</button>
+                            </div>
+                        </section>
+                    </div>
+
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

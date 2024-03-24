@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/coming-soon.css' %}">
+    <title>August Launch</title>
+</head>
+
+<body>
+    <img class="pattern champagne-glasses left bottom" src="/static/img/icons/launch-page/champagne-glasses.svg"
+        alt="">
+    <img class="pattern champagne-bottle right bottom" src="/static/img/icons/launch-page/champagne-bottle.svg"
+        alt="">
+    <img class="pattern champagne-glasses left top opacity" src="/static/img/icons/launch-page/champagne-glasses.svg"
+        alt="">
+    <img class="pattern champagne-bottle right top opacity" src="/static/img/icons/launch-page/champagne-bottle.svg"
+        alt="">
+    <div class="launch-content">
+        <div class="logo">
+            <img src="/static/img/logo.svg" alt="">
+            <h1>MarketPulse</h1>
+        </div>
+        <h1 class="title">Still in Progress. Stay Tuned!</h1>
+        <p>
+            Welcome to MarketPulse, the cutting-edge data-driven platform that is reshaping the retail landscape in Rwanda. Our mission is to provide retailers, wholesalers, and manufacturers with real-time insights and 
+            real-time insights to optimize food management and minimize waste. 
+            Our platform streamlines inventory and sales forecasting, ensuring smarter decisions for a sustainable future. Dive into the future of retail with MarketPulse and unlock the full potential of your data.
+        </p>
+
+        <div class="launch-time">
+            <div class="count days">
+                <div class="count-item" id="days-number">0</div>
+                <span>D,</span>
+            </div>
+            <div class="count hours">
+                <div class="count-item" id="hours-number">0</div>
+                <span>H,</span>
+            </div>
+            <div class="count minutes">
+                <div class="count-item" id="minutes-number">0</div>
+                <span>M,</span>
+            </div>
+            <div class="count seconds">
+                <div class="count-item" id="seconds-number">0</div>
+                <span>S</span>
+            </div>
+        </div>
+    </div>
+    <div class="beta-content">
+        <h1 class="beta-title">Wanna test the product?</h1>
+        <p>
+            And be the first to know when the digital marketplace is done and settled
+        </p>
+
+        <a href="{% url 'login' %}"><button class="btn-blue">Go Back</button></a>
+    </div>
+    <script src="{% static 'js/coming-soon.js' %}"></script>
+</body>
+
+</html>

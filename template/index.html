@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <title>MarketPulse - Home</title>
+
+</head>
+<body>
+    <div class="dashboard--container">
+        <div class="sidebar--section">
+            <div class="sidebar--logo">
+                <img src="/static/img/logo.svg" alt="logo">
+                <h1>MarketPulse</h1>
+            </div>
+            <div class="sidebar--links">
+                <a href="{% url 'index' %}" class="links">
+                    <div class="dashboard">
+                        <img src="/static/img/dash.svg" alt="dashboard--icon">
+                        <p>Dashboard</p>
+                    </div>
+                </a>
+                <a href="{% url 'notifications' %}"  class="links">
+                    <div class="notification">
+                        <img src="/static/img/notification.svg" alt="notification--icon">
+                        <p>Notifications</p>
+                    </div>
+                </a>
+                <a href="{% url 'settings' %}"  class="links">
+                    <div class="settings">
+                        <img src="/static/img/settings.svg" alt="settings--icon">
+                        <p>Account Settings</p>
+                    </div>
+                </a>
+            </div>
+            <!-- <a href="#"> -->
+                <div class="logout">
+                    <img src="/static/img/logout.svg" alt="logout--icon">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            <!-- </a> -->
+        </div>
+
+        <div class="main--content">
+
+            <header class="header--section">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
+                </div>
+
+                <div class="profile--section">
+                    <a href="{% url 'notifications' %}" class="notify--icon"><i class="far fa-bell"></i></a>
+                    <img src="/static/img/Line.svg" alt="dividing line">
+                    <a href="{% url 'settings' %}" class="header--profile">
+                        <div>
+                            <h4>{{ user_name }}</h4>
+                            <p>{{ user_group }}</p>
+                        </div>
+                        <img src="/static/img/profile.jpg" alt="user profile icon">
+                    </a>
+                </div>
+            </header>
+
+            
+            <div class="content">
+                <section>
+                    <div class="header-container">
+                        <h1 class="header-title">Dashboard</h1>
+                        <button class="export-button">
+                            <img src="/static/img/export.svg" alt="Export" />
+                            Export
+                        </button>
+
+                        <div class="export-dropdown hidden">
+                            <a href="#" class="export-option">
+                                <img src="/static/img/excel.svg" alt="Excel Icon" />
+                                Export To Excel
+                            </a>
+                            <a href="#" class="export-option">
+                                <img src="/static/img/word.svg" alt="Word Icon" />
+                                Export To Word
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="overlay hidden"></div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <img src="/static/img/temp.svg" alt="">
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-value">22.2°C</p>
+                                <p class="stat-type">Temperature</p>
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat">
+                        <div class="stat-icon">
+                            <img src="/static/img/humidity.svg" alt="">
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-value">64%</p>
+                            <p class="stat-type">Humidity</p>
+                        </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div>
+                            <div class="stat">
+                                <p class="stat-value">{{total_sales}}</p>
+                                <p class="stat-change increase">↑ 18%</p>
+                            </div>
+                    
+                            <p class="stat-type">Sales <br>This Month</p>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div>
+                            <div class="stat">
+                                <p class="stat-value">{{total_inventory}}</p>
+                                <div class="stat-change decrease">↓ 10%</div>
+                    
+                            </div>
+                            <p class="stat-type">Inventory <br>This Month</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="chart-container">
+                        <div class="chart" id="sales-chart">
+                            <h2>Sales Trends By Food Category</h2>
+                            <canvas id="salesTrendsChart"></canvas>
+                        </div>
+                        <div class="chart" id="consumption-chart">
+                            <div class="horizontal-chart">
+                                <h2>Frequently Consumed By Region</h2>
+                                <select name="categories" id="">
+                                    <option value="Vegetable">Vegetable</option>
+                                    <option value="Protein">Protein</option>
+                                    <option value="Diary">Diary</option>
+                                    <option value="Grains">Grains</option>
+                                    <option value="Meat">Meat</option>
+                                    <option value="Seafood">Seafood</option>
+                                </select>
+                            </div>
+                            <canvas id="consumptionRegionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="food-expiration-chart">
+                            <div class="horizontal-chart">
+                                <h2>Food Expiration By Category</h2>
+                                <select name="categories" id="">
+                                    <option value="2024" selected>2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                            <canvas id="foodExpirationChart"></canvas>
+                            <div class="chart-legend" id="legend-container">
+                    
+                            </div>
+                        </div>
+                        <div class="items-near-expiration">
+                            <h2>Items Nearly Expiration</h2>
+                            <div class="item-list">
+                                <div class="item header--items">
+                                    <div class="product-name">Product Name</div>
+                                    <div class="category">Categories</div>
+                                    <div class="quantity">Quantity</div>
+                                    <div class="price">Price</div>
+                                    <div class="expiry-date">Expiry Date</div>
+                                </div>
+                            </div>
+                            <div id="pagination-links" class="pagination-links">
+                                <!-- Page links will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="full-width-chart-container">
+                        <div class="horizontal-chart turnover-chart">
+                            <h2>Inventory Turnover Rate Vs Purchase Rate</h2>
+                            <select name="categories" class="chart-dropdown">
+                                <option value="Vegetable">Vegetable</option>
+                                <option value="Protein">Protein</option>
+                                <option value="Diary">Diary</option>
+                                <option value="Grains">Grains</option>
+                                <option value="Meat">Meat</option>
+                                <option value="Seafood">Seafood</option>
+                            </select>
+                            <div id="turnover-legend-container"></div>
+                        </div>
+                        <canvas id="inventoryVsConsumptionChart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+<script src="/static/js/charts.js"></script>
+<script src="/static/js/inventory.js"></script>
+<script src="/static/js/horizontalChart.js"></script>
+<script src="/static/js/pieChart.js"></script>
+
+<script>
+function fetchAndDisplayProductsNearingExpiry(page = 1) {
+    fetch(`/api/expiry-products/?page=${page}`)  // Ensure this URL matches your API endpoint
+        .then(response => response.json())
+        .then(responseData => {
+            const { data, total_pages, current_page } = responseData;
+            const itemsContainer = document.querySelector('.item-list');
+            const paginationLinksContainer = document.getElementById('pagination-links');
+
+            // Clear any existing items, except for the header
+            itemsContainer.querySelectorAll('.item:not(.header--items)').forEach(el => el.remove());
+            paginationLinksContainer.innerHTML = '';
+
+            // Dynamically create item divs from the response data
+            data.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <div class="product-name">
+                        <img src="https://selecthealth.org/blog/2020/02/selecthealth.org/-/media/selecthealth/blogs/post/2022/08/apple_types_blog_lg.jpg" alt="${item.name}">
+                        <div>
+                            <span>${item.name}</span>
+                        </div>
+                    </div>
+                    <div class="category">${item.category__name}</div>
+                    <div class="quantity">${item.stock_quantity} Pieces</div>
+                    <div class="price">${parseFloat(item.unit_price).toFixed(2)} Rwf</div>
+                    <div class="expiry-date">${new Date(item.expiry_date).toLocaleDateString()}</div>
+                `;
+                itemsContainer.appendChild(itemDiv);
+            });
+
+            // Dynamically create pagination links
+            for (let i = 1; i <= total_pages; i++) {
+    const pageLink = document.createElement('a');
+    pageLink.href = '#';  // Use '#' to make the anchor clickable without navigating away
+    pageLink.textContent = i;
+    pageLink.className = 'page-link';
+    if (i === page) {
+        pageLink.classList.add('active');  // Add 'active' class to indicate the current page
+    }
+
+    pageLink.addEventListener('click', (e) => {
+        e.preventDefault();  // Prevent the default anchor link behavior
+        fetchAndDisplayProductsNearingExpiry(i);
+    });
+
+    paginationLinksContainer.appendChild(pageLink);
+}
+
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+document.addEventListener('DOMContentLoaded', () => fetchAndDisplayProductsNearingExpiry());
+</script>
+
+
+
+
+</body>
+</html>

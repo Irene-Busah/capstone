@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/notification.css">
+    <link rel="stylesheet" href="/static/css/notify-setting.css">
+    <link rel="stylesheet" href="/static/css/security.css">
+    <title>MarketPulse - Settings</title>
+</head>
+
+
+<body>
+    <div class="dashboard--container">
+        <div class="sidebar--section">
+            <div class="sidebar--logo">
+                <img src="/static/img/logo.svg" alt="logo">
+                <h1>MarketPulse</h1>
+            </div>
+            <div class="sidebar--links">
+                <a href="{% url 'index' %}"  class="links">
+                    <div class="dashboard">
+                        <img src="/static/img/dashboard.svg" alt="dashboard--icon">
+                        <p>Dashboard</p>
+                    </div>
+                </a>
+                <a href="{% url 'notifications' %}"  class="links">
+                    <div class="notification">
+                        <img src="/static/img/notification.svg" alt="notification--icon">
+                        <p>Notifications</p>
+                    </div>
+                </a>
+                <a href="{% url 'settings' %}"  class="links">
+                    <div class="settings">
+                        <img src="/static/img/setting-notify.svg" alt="settings--icon">
+                        <p>Account Settings</p>
+                    </div>
+                </a>
+            </div>
+            <div class="logout">
+                <img src="/static/img/logout.svg" alt="logout--icon">
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+            
+        </div>
+
+        <div class="main--content">
+            <header class="header--section">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
+                </div>
+
+                <div class="profile--section">
+                    <a href="{% url 'notifications' %}" class="notify--icon"><i class="far fa-bell"></i></a>
+                    <img src="/static/img/Line.svg" alt="dividing line">
+                    <a href="{% url 'settings' %}" class="header--profile">
+                        <div>
+                            <h4>{{ user_name }}</h4>
+                            <p>{{ user_group }}</p>
+                        </div>
+                        <img src="/static/img/profile.jpg" alt="user profile icon">
+                    </a>
+                </div>
+            </header>
+
+            <div class="content">
+                <section>
+                    <div class="header-container">
+                        <h1 class="header-title">Settings</h1>
+                        <div class="breadcrumb">
+                                Dashboard / Account Settings /
+                            <span class="breadcrumb-current">Secuity</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="settings-container">
+                        <aside class="sidebar">
+                            <ul class="menu">
+                                <li><a href="{% url 'settings' %}">Profile</a></li>
+                                <li><a href="{% url 'notification-settings' %}">Notification Preferences</a></li>
+                                <li class="active">
+                                    <img src="/static/img/arrow.svg" alt="arrow">
+                                    <a href="{% url 'security-settings' %}">Secuity</a>
+                                </li>
+                            </ul>
+                        </aside>
+                        <section class="notification-settings">
+                            <div class="settings-content">
+                                <!-- Password change section -->
+                                <div class="settings-options security--title">
+                                    <h2 style="color: #00AF54;">Password</h2>
+                                </div>
+                                <div class="password-section">
+                                    {% if messages %}
+                                        <div class="messages">
+                                            {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }}">
+                                                {{ message }}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="password-info-wrapper">
+                                        <div class="icon-container">
+                                            <img src="/static/img/password.svg" alt="Lock Icon">
+                                        </div>
+                                        <div class="text-container">
+                                            <h3>Account Password</h3>
+                                            <p>
+                                                Please follow the instructions in the email <br>to finish setting your password.
+                                            </p>
+                                        </div>
+                                        <button class="change-password">Change Password</button>
+                                    </div>
+
+                                    <!-- Hidden form for changing password -->
+                                    <form action="{% url 'change_password' %}" method="post" class="change-password-form" style="display: none;">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="new-password">New Password</label>
+                                            <input type="password" id="new-password" name="new_password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirm-new-password">Confirm New Password</label>
+                                            <input type="password" id="confirm-new-password" name="confirm_new_password" required>
+                                        </div>
+                                        <button type="submit" class="save-password">Save</button>
+                                    </form>
+                                </div>
+
+
+
+                                
+                                <!-- Account deletion section -->
+                                <div class="settings-options security--title">
+                                    <h2 style="color: #00AF54;">Delete Account</h2>
+                                </div>
+                                <div class="delete-section">
+                                    <div class="icon-container">
+                                        <img src="/static/img/trash.svg" alt="Delete Icon">
+                                    </div>
+                                    <div class="text-container">
+                                        <h3>Delete Account</h3>
+                                        <p>If you no longer wish to use Capstone, you can <br>permanently delete your account.</p>
+                                    </div>
+                                    <form action="{% url 'delete_account' %}" method="post"s>
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-account" onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">Delete My Account</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </section>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const changePasswordButton = document.querySelector('.change-password');
+            const changePasswordForm = document.querySelector('.change-password-form');
+
+            changePasswordButton.addEventListener('click', function() {
+                changePasswordForm.style.display = 'block';
+                changePasswordButton.style.display = 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

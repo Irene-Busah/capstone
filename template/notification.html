@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/notification.css">
+    <title>MarketPulse - Notifications</title>
+</head>
+
+
+<body>
+    <div class="dashboard--container">
+        <div class="sidebar--section">
+            <div class="sidebar--logo">
+                <img src="/static/img/logo.svg" alt="logo">
+                <h1>MarketPulse</h1>
+            </div>
+            <div class="sidebar--links">
+                <a href="{% url 'index' %}"  class="links">
+                    <div class="dashboard">
+                        <img src="/static/img/dashboard.svg" alt="dashboard--icon">
+                        <p>Dashboard</p>
+                    </div>
+                </a>
+                <a href="{% url 'notifications' %}"  class="links">
+                    <div class="notification">
+                        <img src="/static/img/notify.svg" alt="notification--icon">
+                        <p>Notifications</p>
+                    </div>
+                </a>
+                <a href="{% url 'settings' %}"  class="links">
+                    <div class="settings">
+                        <img src="/static/img/settings.svg" alt="settings--icon">
+                        <p>Account Settings</p>
+                    </div>
+                </a>
+            </div>
+            <!-- <a href="#"> -->
+                <div class="logout">
+                    <img src="/static/img/logout.svg" alt="logout--icon">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+            <!-- </a> -->
+        </div>
+
+        <div class="main--content">
+            <header class="header--section">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
+                </div>
+
+                <div class="profile--section">
+                    <a href="{% url 'notifications' %}" class="notify--icon"><i class="far fa-bell"></i></a>
+                    <img src="/static/img/Line.svg" alt="dividing line">
+                    <a href="{% url 'settings' %}" class="header--profile">
+                        <div>
+                            <h4>{{ user_name }}</h4>
+                            <p>{{ user_group }}</p>
+                        </div>
+                        <img src="/static/img/profile.jpg" alt="user profile icon">
+                    </a>
+                </div>
+            </header>
+
+            <div class="content">
+                <section>
+                    <div class="header-container">
+                        <h1 class="header-title">Notifications</h1>
+                        <div class="breadcrumb">
+                            <!-- <a href="/dashboard" class="breadcrumb-link"> </a> -->
+                                Dashboard / 
+                            <span class="breadcrumb-current">Notification</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="notifications-container">
+                        <div class="notification-item">
+                            <div class="notification-icon green-bg">
+                                <img src="/static/img/usage.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Usage Reminder</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">2 min ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon red-bg">
+                                <img src="/static/img/expire.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Product Expiration</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">2 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon green-bg">
+                                <img src="/static/img/usage.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Restock Reminder</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">10 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon yellow-bg">
+                                <img src="/static/img/inventory.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Low Inventory</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">12 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon green-bg">
+                                <img src="/static/img/usage.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Restock Reminder</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">10 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon green-bg">
+                                <img src="/static/img/usage.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Usage Reminder</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">20 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon red-bg">
+                                <img src="/static/img/expire.svg" alt="Usage Reminder Icon">
+                            </div>
+                            <div class="notification-content">
+                                <h3 class="notification-title">Product Expiration</h3>
+                                <p class="notification-description">Product with ID <span class="product--id">#12</span> are near their <span class="notification--type">expiration date</span>. Act quickly</p>
+                                <span class="notification-time">22 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/notification-messages/')  // Adjust this to your actual API endpoint
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('.notifications-container');
+                container.innerHTML = '';  // Clear existing content
+
+                const allNotifications = [
+                    ...data.low_stock_items.map(item => ({
+                        id: item.id,  // Ensure each item has a unique identifier
+                        title: 'Low Inventory',
+                        description: `${item.name} stock is running low.`,
+                        icon: 'inventory.svg',
+                        iconBg: 'yellow-bg',
+                        type: 'low inventory'
+                    })),
+                    ...data.soon_to_expire_items.map(item => ({
+                        id: item.id,
+                        title: 'Usage Reminder',
+                        description: `${item.name} is nearing its expiration date on ${item.expiry_date}.`,
+                        icon: 'usage.svg',
+                        iconBg: 'green-bg',
+                        type: 'expiration'
+                    })),
+                    ...data.expired_items.map(item => ({
+                        id: item.id,
+                        title: 'Product Expiration',
+                        description: `${item.name} expired on ${item.expiry_date}.`,
+                        icon: 'expire.svg',
+                        iconBg: 'red-bg',
+                        type: 'expired'
+                    }))
+                ];
+
+                // Shuffle all notifications
+                const shuffledNotifications = allNotifications.sort(() => 0.5 - Math.random());
+
+                shuffledNotifications.forEach(notification => {
+                    // Check if the notification time is already stored, if not, store the current time
+                    if (!localStorage.getItem(`notification-time-${notification.id}`)) {
+                        localStorage.setItem(`notification-time-${notification.id}`, new Date().toISOString());
+                    }
+
+                    const notificationTime = new Date(localStorage.getItem(`notification-time-${notification.id}`));
+
+                    const item = document.createElement('div');
+                    item.className = 'notification-item';
+                    item.innerHTML = `
+                        <div class="notification-icon ${notification.iconBg}">
+                            <img src="/static/img/${notification.icon}" alt="${notification.title} Icon">
+                        </div>
+                        <div class="notification-content">
+                            <h3 class="notification-title">${notification.title}</h3>
+                            <p class="notification-description">${notification.description}</p>
+                            <span class="notification-time" data-time="${notificationTime.toISOString()}">Just now</span>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
+
+                const updateTimeElements = () => {
+                    document.querySelectorAll('.notification-time').forEach(el => {
+                        const time = new Date(el.dataset.time);
+                        const now = new Date();
+                        let diff = Math.round((now - time) / 1000);  // Difference in seconds
+                        let timeText = 'Just now';
+
+                        if (diff > 60) {
+                            diff = Math.round(diff / 60);  // Convert to minutes
+                            timeText = `${diff} min ago`;
+
+                            if (diff > 60) {
+                                diff = Math.round(diff / 60);  // Convert to hours
+                                timeText = `${diff} hours ago`;
+
+                                if (diff > 24) {
+                                    diff = Math.round(diff / 24);  // Convert to days
+                                    timeText = `${diff} days ago`;
+                                }
+                            }
+                        }
+
+                        el.textContent = timeText;
+                    });
+                };
+
+                updateTimeElements();
+                setInterval(updateTimeElements, 60000);  // Update times every minute
+            })
+            .catch(error => console.error('Error loading notifications:', error));
+        });
+
+    </script>
+
+
+
+</body>
+</html>

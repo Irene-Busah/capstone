@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Futura Book";
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  border: none;
+  font-weight: 900;
+}
+
+.btn-blue {
+  background-color: #146454;
+  color: white;
+}
+.btn-blue:hover {
+  color: #146454;
+  background-color: white;
+  border: 1px solid #146454;
+}
+
+body {
+  font-size: 18px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #00AF54;
+  font-family: "Nunito", sans-serif;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+body {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 68px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+body .pattern {
+  position: absolute;
+  max-width: 200px;
+}
+body .left {
+  left: 0;
+}
+body .right {
+  right: 0;
+}
+body .top {
+  top: 0;
+}
+body .bottom {
+  bottom: 0;
+}
+body .opacity {
+  opacity: 10%;
+}
+body .champagne-glasses {
+  transform: rotate(30deg);
+}
+body .champagne-bottle {
+  transform: rotate(-30deg);
+}
+body .launch-content {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  margin: auto;
+}
+body .launch-content .logo {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+body .launch-content .logo img {
+  width: 50px;
+}
+body .launch-content .logo h1 {
+  font-size: 32px;
+}
+body .launch-content p {
+  text-align: center;
+  max-width: 600px;
+}
+body .launch-content .launch-time {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+body .launch-content .launch-time .count {
+  margin-top: 50px;
+  display: flex;
+  align-items: end;
+  gap: 6px;
+  font-size: 10vw;
+  font-weight: bold;
+}
+body .launch-content .launch-time .count .count-item {
+  font-family: "Archivo Black", sans-serif;
+  line-height: 8vw;
+}
+body .launch-content .launch-time .count span {
+  font-size: 3.5vw;
+}
+body .launch-content .launch-time .count #seconds-number {
+  color: #00AF54;
+}
+body .launch-content .launch-time .count #days-number {
+  color: #00AF54;
+}
+body .launch-content .launch-time .count #hours-number {
+  color: #B8E716;
+}
+body .launch-content .launch-time .count #minutes-number {
+  color: rgb(192, 192, 2);
+}
+body .beta-content {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+  max-width: 600px;
+  margin: auto;
+}
+body .beta-content h1 {
+  font-size: 32px;
+}
+
+@media screen and (max-width: 780px) {
+  h1 {
+    font-size: 24px;
+  }
+  body {
+    padding: 48px;
+  }
+  body .pattern {
+    position: absolute;
+    max-width: 100px;
+  }
+  body .launch-content {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    margin: auto;
+  }
+  body .launch-content .logo {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  body .launch-content .logo img {
+    max-width: 50px;
+  }
+  body .launch-content .logo h1 {
+    font-size: 32px;
+  }
+  body .launch-content p {
+    text-align: center;
+  }
+  body .launch-content .launch-time {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  body .launch-content .launch-time .count {
+    margin-top: 50px;
+    display: flex;
+    align-items: end;
+    gap: 6px;
+    font-size: 10vw;
+    font-weight: bold;
+  }
+  body .launch-content .launch-time .count .count-item {
+    font-family: "Archivo Black", sans-serif;
+    line-height: 8vw;
+  }
+  body .launch-content .launch-time .count span {
+    font-size: 3.5vw;
+  }
+  body .launch-content .launch-time .count #seconds-number {
+    color: #00AF54;
+  }
+  body .launch-content .launch-time .count #days-number {
+    color: #00AF54;
+  }
+  body .launch-content .launch-time .count #hours-number {
+    color: #B8E716;
+  }
+  body .launch-content .launch-time .count #minutes-number {
+    color: rgb(192, 192, 2);
+  }
+  body .beta-content {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 12px;
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+  }
+  body .beta-content h1 {
+    font-size: 32px;
+  }
+}/*# sourceMappingURL=launch-screen.css.map */

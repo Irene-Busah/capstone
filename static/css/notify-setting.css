@@ -1,0 +1,123 @@
+.settings p {
+    color: #00AF54;
+    font-weight: 700;
+}
+
+.dashboard p, .notification p {
+    color: #000;
+    font-weight: 400;
+}
+
+.settings-container {
+    display: flex;
+    margin-left: 30px;
+    justify-content: center;
+    align-items: first baseline;
+}
+
+.sidebar {
+    flex-basis: 20%;
+}
+
+.sidebar .menu {
+    list-style-type: none;
+}
+
+.sidebar .menu li {
+    margin-bottom: 2rem;
+}
+
+.sidebar .menu li a {
+    color: #404040;
+    text-decoration: none;
+    font-size: 20px;
+    
+}
+
+.sidebar .menu li.active a {
+    color: #000000;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.notification-settings {
+    flex-grow: 1;
+    padding: 20px;
+    
+}
+
+.settings-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 30px;
+    border-bottom: 1px solid #ECECEC;
+}
+
+.settings-options .option {
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 20px;
+    
+}
+
+.settings-options h3 {
+    margin-bottom: 5px;
+}
+
+.settings-options p {
+    margin-bottom: 10px;
+}
+
+.toggle-button {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.toggle-button p, .toggle-button i {
+    color: #A5A3A9;
+}
+
+
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.toggle-buttons input[type=checkbox] {
+    width: 2rem;
+    height: 1.6rem;
+}
+
+.settings-actions {
+    text-align: right;
+    padding: 30px;
+    background: #fff;
+    border-bottom: 1px solid #ECECEC;
+}
+
+.settings--title p {
+    margin-top: 10px;
+    color: #9C9A9A;
+}
+
+.settings-actions .cancel,
+.settings-actions .save {
+    padding: 20px 60px;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.settings-actions .save {
+    background-color: #00AF54;
+    color: white;
+}
+
+/* Ensure to add :hover effects and more styles as per your design needs */

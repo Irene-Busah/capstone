@@ -1,0 +1,134 @@
+  body {
+    font-family: 'Urbanist', sans-serif;
+    background-color: #4caf50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+  .text {
+    text-align: center;
+    color: #404040;
+    margin-bottom: 3rem;
+  }
+  .login-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  /* Message */
+  .messages {
+  margin-bottom: 20px;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+ 
+  .form-group {
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .form-groups {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+  }
+  .form-group label {
+    display: block;
+    color: #666;
+    margin-bottom: 5px;
+  }
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+        width: calc(100% - 20px); 
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="password"]:focus {
+        outline: none;
+        border-color: #00AF54;
+    }
+
+  .form-group input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  .form-group .remember-me {
+    display: flex;
+    align-items: center;
+  }
+  .form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00AF54;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .form-group button:hover {
+    background-color: #45a049;
+  }
+  .login-container .forgot-password {
+    color: #00AF54;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .login-container .forgot-password:hover {
+    text-decoration: underline;
+  }
+  .login-container .create-account {
+    display: block;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    margin-top: 20px;
+  }
+
+  .create-account span a {
+    color: #00AF54;
+    font-weight: 600;
+    text-decoration: none;
+  }
