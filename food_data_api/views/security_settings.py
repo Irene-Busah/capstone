@@ -3,6 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.contrib.auth import authenticate, login
+from core.emails.accounts.emails import (
+    send_password_reset_successful_email,
+    send_delete_account_email,
+)
 
 
 def security_settings_page(request):
@@ -20,10 +24,15 @@ def security_settings_page(request):
 @login_required
 @require_POST
 def delete_account(request):
-    user = request.user
-    user.delete()
-    messages.success(request, "Your account has been successfully deleted.")
-    return redirect("signup-api")
+    if request.method == "POST":
+        user = request.user
+        user_email = user.email
+        user_name = user.get_full_name() or user.username
+        user.delete()
+        send_delete_account_email(user_email, user_name)
+        messages.success(request, "Your account has been successfully deleted.")
+        logout(request)
+        return redirect("signup-api")
 
 
 @login_required
@@ -45,6 +54,12 @@ def change_password(request):
                 messages.success(
                     request, "Your password has been successfully changed."
                 )
+
+                # Send email notification for successful password reset
+                send_password_reset_successful_email(
+                    user.email, user.get_full_name() or user.username
+                )
+
             else:
                 messages.error(
                     request,

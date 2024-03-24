@@ -55,29 +55,42 @@ def dashboard_page(request):
         expiry_date__lte=nearing_expiry_date
     ).count()
 
-    # Consider having a function that calculates the average turnover rate
-    # average_turnover_rate = get_average_turnover_rate()
-
     now = timezone.now()
-    if now.hour == 22:  # Send emails at 10 PM
-        user_email = request.user.email
-        user_name = request.user.get_full_name()
+    if now.hour == 7:
+        # Convert QuerySet to a list of dictionaries for low stock products
+        low_stock_products = [
+            {"name": item.name, "stock_quantity": item.stock_quantity}
+            for item in data["low_stock_items"]
+        ]
+        nearing_expiry_products = list(
+            data["soon_to_expire_items"].values("name", "expiry_date")
+        )
+        expired_products = list(data["expired_items"].values("name", "expiry_date"))
 
-        # Retrieve low stock, nearing expiry, and expired products for email notifications
-        low_stock_products = get_low_stock_products()
-        nearing_expiry_products = get_nearing_expiry_products()
-        expired_products = get_expired_products()
+        # Send low inventory email if there are any low stock products
+        if low_stock_products:
+            send_low_inventory_email(
+                recipient_email=request.user.email,
+                recipient_name=request.user.get_full_name() or request.user.username,
+                low_stock_products=low_stock_products,
+            )
 
-        # Send email notifications
-        send_low_inventory_email(user_email, user_name, list(low_stock_products))
-        for product in nearing_expiry_products:
-            send_nearing_expiry_email(user_email, user_name, product)
-        for product in expired_products:
-            send_expired_product_email(user_email, user_name, product)
+        if nearing_expiry_products:
+            send_nearing_expiry_email(
+                recipient_email=request.user.email,
+                recipient_name=request.user.get_full_name() or request.user.username,
+                nearing_expiry_products=nearing_expiry_products,
+            )
+
+        if expired_products:
+            send_expired_product_email(
+                recipient_email=request.user.email,
+                recipient_name=request.user.get_full_name() or request.user.username,
+                expired_products=expired_products,
+            )
 
         messages.success(request, "Notification emails sent successfully.")
 
-    # Update context with new data for the stats card
     context = {
         "user_name": request.user.get_full_name() or request.user.username,
         "user_group": (

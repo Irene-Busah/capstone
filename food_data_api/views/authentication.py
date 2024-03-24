@@ -4,10 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from core.decorators import group_required
-
-
-# def login_page(request):
-#     return render(request, "login.html")
+from core.emails.accounts.emails import send_login_successful_email
 
 
 def signUp_page(request):
@@ -27,6 +24,9 @@ def login_api(request):
 
         if user is not None:
             login(request, user)
+
+            send_login_successful_email(user.email, user.first_name)
+
             return redirect("index")
         else:
             messages.error(request, "Invalid credentials")
@@ -35,7 +35,6 @@ def login_api(request):
         return render(request, "login.html")
 
 
-# @require_POST
 def logout_view(request):
     logout(request)
     return redirect("login")
