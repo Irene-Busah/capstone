@@ -15,12 +15,6 @@ def account_created_email(strong_password):
     print("Generated strong password:", strong_password)
 
 
-# common data
-# common_data = {
-#     "apikey": "E3DF424D2FCE8D3F0251F31E9BCB6CE8C37B9E5FB5A90C52C287F4AA31883B36D1813EE57C76BD2A7154BF3082C2E19C",
-#     "mergeSource": "api",
-# }
-
 # base link
 BASE_LINK = "http://127.0.0.1:8000"
 
