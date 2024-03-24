@@ -1,3 +1,4 @@
 .env
 venv/
 simulate_data.py
+__pycache__
