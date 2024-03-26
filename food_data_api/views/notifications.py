@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from dashboard.views.notifications import get_notification_data
-from simulate_data import update_existing_products_notification_time
 from core.helpers.send_email import (
     send_low_inventory_email,
     send_expired_product_email,
@@ -31,7 +30,7 @@ def notifications_api(request):
     # Current server time
     now = datetime.now()
 
-    if now.hour == 7:
+    if now.hour == 3:
         # Convert QuerySet to a list of dictionaries for low stock products
         low_stock_products = [
             {"name": item.name, "stock_quantity": item.stock_quantity}

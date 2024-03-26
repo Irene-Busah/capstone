@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import environ
+import dj_database_url
 
 # from food_data_api.models.user import CustomUser
 
@@ -24,15 +26,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+
 
 # Load environment variables from '.env' file
-load_dotenv()
+load_dotenv(BASE_DIR / ".env")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+env = environ.Env(
+    DEBUG=(bool, False),
+)
+environ.Env.read_env(BASE_DIR / ".env")
+
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env("DEBUG")
+
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".fly.dev"]
+
+CSRF_TRUSTED_ORIGINS = ["https://*.fly.dev"]
 
 EMAIL_API_KEY = os.getenv("EMAIL_API_KEY")
 EMAIL_SECRET_KEY = os.getenv("EMAIL_SECRET_KEY")
@@ -49,6 +60,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
     # installed Apps
     "food_data_api",
     "dashboard",
@@ -62,6 +74,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -105,6 +118,14 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+# DATABASES = {
+#     # os.environ['DATABASE_URL']
+#     # "default": env.db()
+#     "default": dj_database_url.parse(
+#         "postgres://marketpulse:G0Mdxau5Yt5TpxE@food-products-db.flycast:5432/marketpulse?sslmode=disable"
+#     )
+# }
 
 # Celery Configuration
 CELERY_BROKER_URL = "redis://localhost:6379/0"
@@ -155,6 +176,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type

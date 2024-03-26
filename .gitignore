@@ -2,3 +2,7 @@
 venv/
 simulate_data.py
 __pycache__
+Dockerfile
+fly.toml
+
+# postgres://marketpulse:G0Mdxau5Yt5TpxE@food-products-db.flycast:5432/marketpulse?sslmode=disable
