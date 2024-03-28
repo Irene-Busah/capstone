@@ -55,7 +55,7 @@ def send_nearing_expiry_email(recipient_email, recipient_name, nearing_expiry_pr
 
     formatted_email_content = nearing_expiry_email_content.format(
         first_name=recipient_name,
-        product_list=products_html,  # Use the constructed HTML list of products
+        product_list=products_html,
     )
 
     subject = "Nearing Expiry Notification - MarketPulse Platform"
