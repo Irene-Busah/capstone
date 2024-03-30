@@ -2,63 +2,62 @@ from django.db.models import Sum, Avg, F, FloatField, ExpressionWrapper, Q
 from django.db.models.functions import Coalesce
 from datetime import datetime, timedelta
 from food_data_api.models.sales import Sale, InventoryAdjustment
+from food_data_api.models.product import Product
 from django.utils import timezone
+from django.db.models import FloatField
+from django.db.models.functions import Cast
 
 
 def get_inventory_and_purchase_rate_by_category():
-    one_year_ago = timezone.now() - timedelta(days=365)
-    today = timezone.now()
+    start_of_year = timezone.now().replace(
+        month=1, day=1, hour=0, minute=0, second=0, microsecond=0
+    )
 
-    # Calculate total sold for each category over the past year
+    # Aggregate sales data by category for the current year
     sales_agg = (
-        Sale.objects.filter(sale_date__gte=one_year_ago, sale_date__lte=today)
+        Sale.objects.filter(sale_date__gte=start_of_year)
         .values("product__category__name")
         .annotate(
-            sold_quantity=Sum("quantity"),
-            cogs=Sum(
-                F("quantity") * F("product__unit_price"), output_field=FloatField()
+            total_sales_quantity=Sum("quantity"),
+            cogs_approx=Sum(
+                Cast("quantity", FloatField()) * F("product__unit_price"),
+                output_field=FloatField(),
             ),
         )
     )
 
-    # Calculate net inventory adjustments for each category over the past year
-    adjustments_agg = (
-        InventoryAdjustment.objects.filter(
-            adjustment_date__gte=one_year_ago, adjustment_date__lte=today
-        )
-        .values("product__category__name")
-        .annotate(net_adjustment=Sum("adjusted_quantity"))
-    )
+    rates_by_category = {}
 
-    # Combine sales and adjustments to calculate turnover and acquisition rates
-    rates_by_category = []
     for sale in sales_agg:
         category_name = sale["product__category__name"]
 
-        # Find matching adjustments
-        matching_adjustment = next(
-            (
-                adj
-                for adj in adjustments_agg
-                if adj["product__category__name"] == category_name
-            ),
-            {"net_adjustment": 0},
+        # Purchase Rate: Total sales quantity for the current year
+        purchase_rate = sale["total_sales_quantity"]
+
+        # Average Inventory: Use the average stock_quantity from the Product model for the current category
+        average_inventory = Product.objects.filter(
+            category__name=category_name
+        ).aggregate(
+            avg_stock=Coalesce(
+                Avg(
+                    Cast("stock_quantity", FloatField()),
+                    output_field=FloatField(),
+                ),
+                0,
+                output_field=FloatField(),
+            )
+        )[
+            "avg_stock"
+        ]
+
+        # Inventory Turnover Rate: COGS approximation divided by average inventory
+        turnover_rate = (
+            sale["cogs_approx"] / average_inventory if average_inventory else 0
         )
 
-        # Calculate turnover rate: COGS / Average Inventory
-        # For simplicity, let's consider COGS as total sales value and ignore beginning inventory
-        average_inventory = (sale["cogs"] + matching_adjustment["net_adjustment"]) / 2
-        turnover_rate = sale["cogs"] / average_inventory if average_inventory else 0
-
-        # Acquisition rate: net adjustment quantity (which includes sales as outgoing stock)
-        acquisition_rate = matching_adjustment["net_adjustment"]
-
-        rates_by_category.append(
-            {
-                "category": category_name,
-                "turnover_rate": turnover_rate,
-                "acquisition_rate": acquisition_rate,
-            }
-        )
-
+        rates_by_category[category_name] = {
+            "turnover_rate": turnover_rate,
+            "purchase_rate": purchase_rate,
+        }
+    print(rates_by_category)
     return rates_by_category

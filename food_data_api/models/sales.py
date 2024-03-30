@@ -29,6 +29,9 @@ class InventoryAdjustment(models.Model):
     adjustment_date = models.DateField()
     reason = models.TextField()
 
+    def __str__(self):
+        return f"{self.product.name}"
+
 
 class Transaction(models.Model):
     TYPE_CHOICES = [

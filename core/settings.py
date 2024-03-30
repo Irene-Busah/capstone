@@ -48,7 +48,7 @@ CSRF_TRUSTED_ORIGINS = ["https://*.fly.dev"]
 EMAIL_API_KEY = os.getenv("EMAIL_API_KEY")
 EMAIL_SECRET_KEY = os.getenv("EMAIL_SECRET_KEY")
 
-EMAIL_SERVER_TOKEN = os.getenv("EMAIL_SERVER_TOKEN")
+# EMAIL_SERVER_TOKEN = os.getenv("EMAIL_SERVER_TOKEN")
 
 
 # Application definition
@@ -119,13 +119,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     # os.environ['DATABASE_URL']
-#     # "default": env.db()
-#     "default": dj_database_url.parse(
-#         "postgres://marketpulse:G0Mdxau5Yt5TpxE@food-products-db.flycast:5432/marketpulse?sslmode=disable"
-#     )
-# }
 
 # Celery Configuration
 CELERY_BROKER_URL = "redis://localhost:6379/0"

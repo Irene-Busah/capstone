@@ -162,6 +162,9 @@
                             </div>
                         </div>
                     </div>
+                    <div id="pagination-links" class="pagination-links">
+                                
+                    </div>
                 </section>
                 
             </div>
@@ -169,15 +172,15 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        fetch('/api/notification-messages/')  // Adjust this to your actual API endpoint
+        fetch('/api/notification-messages/')
             .then(response => response.json())
             .then(data => {
                 const container = document.querySelector('.notifications-container');
-                container.innerHTML = '';  // Clear existing content
+                container.innerHTML = ''; 
 
                 const allNotifications = [
                     ...data.low_stock_items.map(item => ({
-                        id: item.id,  // Ensure each item has a unique identifier
+                        id: item.id,  
                         title: 'Low Inventory',
                         description: `${item.name} stock is running low.`,
                         icon: 'inventory.svg',
@@ -232,19 +235,19 @@
                     document.querySelectorAll('.notification-time').forEach(el => {
                         const time = new Date(el.dataset.time);
                         const now = new Date();
-                        let diff = Math.round((now - time) / 1000);  // Difference in seconds
+                        let diff = Math.round((now - time) / 1000); 
                         let timeText = 'Just now';
 
                         if (diff > 60) {
-                            diff = Math.round(diff / 60);  // Convert to minutes
+                            diff = Math.round(diff / 60); 
                             timeText = `${diff} min ago`;
 
                             if (diff > 60) {
-                                diff = Math.round(diff / 60);  // Convert to hours
+                                diff = Math.round(diff / 60);
                                 timeText = `${diff} hours ago`;
 
                                 if (diff > 24) {
-                                    diff = Math.round(diff / 24);  // Convert to days
+                                    diff = Math.round(diff / 24);
                                     timeText = `${diff} days ago`;
                                 }
                             }
@@ -255,11 +258,10 @@
                 };
 
                 updateTimeElements();
-                setInterval(updateTimeElements, 60000);  // Update times every minute
+                setInterval(updateTimeElements, 60000);
             })
             .catch(error => console.error('Error loading notifications:', error));
         });
-
     </script>
 
 

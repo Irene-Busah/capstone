@@ -5,8 +5,9 @@ from django.utils import timezone
 from datetime import timedelta
 from django.core.paginator import Paginator
 from food_data_api.models.product import Product
+from food_data_api.models.category import Category
 from food_data_api.models.sales import Sale, InventoryAdjustment
-from django.db.models import Sum
+from django.db.models import Sum, F
 from dashboard.views.expired_product import (
     get_products_nearing_expiry,
     get_expired_products_by_category,
@@ -37,6 +38,8 @@ def dashboard_page(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
+    categories = Category.objects.all()
+
     # Retrieve necessary data for the stats card
     total_sales = Sale.objects.aggregate(total=Sum("sale_price"))["total"] or 0
     total_inventory_adjustments = (
@@ -53,6 +56,22 @@ def dashboard_page(request):
     )
     nearing_expiry_items_count = Product.objects.filter(
         expiry_date__lte=nearing_expiry_date
+    ).count()
+
+    # Retrieve the top selling product
+    top_selling_product = (
+        Sale.objects.values("product__name")
+        .annotate(total_sales=Sum(F("quantity")))
+        .order_by("-total_sales")
+        .first()
+    )
+    top_selling_product_name = (
+        top_selling_product["product__name"] if top_selling_product else "N/A"
+    )
+
+    # Retrieve the count of low stock products
+    low_stock_count = Product.objects.filter(
+        stock_quantity__lte=low_stock_threshold
     ).count()
 
     now = timezone.now()
@@ -102,6 +121,9 @@ def dashboard_page(request):
         "total_inventory": total_inventory_adjustments,
         "low_stock_items_count": low_stock_items_count,
         "nearing_expiry_items_count": nearing_expiry_items_count,
+        "categories": categories,
+        "top_selling_product_name": top_selling_product_name,
+        "low_stock_count": low_stock_count,
     }
     return render(request, "index.html", context)
 

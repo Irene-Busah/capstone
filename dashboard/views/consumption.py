@@ -10,5 +10,19 @@ def get_frequently_consumed_by_region(request):
         .annotate(total_quantity=Sum("quantity"))
         .order_by("store__region__name", "-total_quantity")
     )
-    # print(sales_by_region_and_category)
-    return list(sales_by_region_and_category)
+
+    # Reorganize data structure
+    organized_data = {}
+    for item in sales_by_region_and_category:
+        category = item["product__category__name"]
+        region = item["store__region__name"]
+        total_quantity = item["total_quantity"]
+
+        if category not in organized_data:
+            organized_data[category] = []
+
+        organized_data[category].append(
+            {"region": region, "total_quantity": total_quantity}
+        )
+    # print(organized_data)
+    return organized_data
