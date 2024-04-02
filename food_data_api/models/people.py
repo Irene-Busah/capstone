@@ -2,14 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
-# from django.conf import settings
 
-# User = get_user_model()
+class NotificationSetting(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    low_inventory = models.BooleanField(default=True)
+    nearing_expiry = models.BooleanField(default=True)
+    expired_products = models.BooleanField(default=True)
 
-# class Employee(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     hire_date = models.DateField()
-#     position = models.CharField(max_length=255)
+    def __str__(self):
+        return f"{self.user.username} Notification Settings"
 
 
 class Supplier(models.Model):

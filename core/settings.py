@@ -45,10 +45,10 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".fly.dev"]
 
 CSRF_TRUSTED_ORIGINS = ["https://*.fly.dev"]
 
-EMAIL_API_KEY = os.getenv("EMAIL_API_KEY")
+# EMAIL_API_KEY = os.getenv("EMAIL_API_KEY")
 EMAIL_SECRET_KEY = os.getenv("EMAIL_SECRET_KEY")
 
-# EMAIL_SERVER_TOKEN = os.getenv("EMAIL_SERVER_TOKEN")
+EMAIL_SERVER_TOKEN = os.getenv("EMAIL_SERVER_TOKEN")
 
 
 # Application definition

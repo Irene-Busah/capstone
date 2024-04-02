@@ -75,27 +75,39 @@
                     <div class="header-container">
                         <h1 class="header-title">Dashboard</h1>
                         <button class="export-button">
-                            <img src="/static/img/export.svg" alt="Export" />
-                            Export
+                            <img src="/static/img/interpret.svg" alt="Export" width="50" height="50"/>
+                            Interpret Data
                         </button>
 
-                        <div class="export-dropdown hidden">
-                            <a href="#" class="export-option">
-                                <img src="/static/img/excel.svg" alt="Excel Icon" />
-                                Export To Excel
-                            </a>
-                            <a href="#" class="export-option">
-                                <img src="/static/img/word.svg" alt="Word Icon" />
-                                Export To Word
-                            </a>
+                    <div class="export-dropdown hidden">
+                        <div class="export-option interpretation">
+                            <img src="/static/img/suggest.svg" alt="Suggestion Icon" class="icon" />
+                            <div class="text-content">
+                                <h2>Interpretation</h2>
+                                <p class="contents" id="interpretationText">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit autem ipsam quia. Quos similique asperiores quod molestiae, omnis soluta nostrum, distinctio enim non voluptas ipsam numquam? Libero voluptas sit quia.
+                                </p>
+                            </div>
                         </div>
+                        <div class="export-option suggestions">
+                            <img src="/static/img/interpret.svg" alt="Interpretation Icon" class="icon" width="24" height="24" />
+                            <div class="text-content">
+                                <h2>Suggestions</h2>
+                                <ul class="contents" id="suggestionsList">
+                                    <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </li>
+                                    <li>Consectetur cum nisi et repudiandae ullam pariatur ad ex ab, dolores ut necessitatibus tempore! </li>
+                                    <li>Nam accusantium voluptas nemo. Illum provident sapiente non.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
                     </div>
                     <div class="overlay hidden"></div>
                     <div class="stats-card">
                         <div class="stat">
                             <div class="stat-icon">
-                                <img src="/static/img/top-product.png" alt="Top Selling Product"> 
+                                <img src="/static/img/top-product.png" alt="Top Selling Product" width="40px" height="40px"> 
                             </div>
                             <div class="stat-info">
                                 <p class="stat-value" id="topSellingProductValue">{{top_selling_product_name}}</p>
@@ -105,7 +117,7 @@
                         <div class="stat-divider"></div>
                         <div class="stat">
                             <div class="stat-icon">
-                                <img src="/static/img/low-inventory.png" alt="Low Stock Alert"> 
+                                <img src="/static/img/low-inventory.png" alt="Low Stock Alert" width="40px" height="40px"> 
                             </div>
                             <div class="stat-info">
                                 <p class="stat-value" id="lowStockCount">{{low_stock_count}}</p>
@@ -168,6 +180,7 @@
                     
                             </div>
                         </div>
+
                         <div class="items-near-expiration">
                             <h2>Items Nearly Expiration</h2>
                             <div class="item-list">
@@ -212,63 +225,107 @@
 <script src="/static/js/pieChart.js"></script>
 
 <script>
-function fetchAndDisplayProductsNearingExpiry(page = 1) {
-    fetch(`/api/expiry-products/?page=${page}`)  // Ensure this URL matches your API endpoint
-        .then(response => response.json())
-        .then(responseData => {
-            const { data, total_pages, current_page } = responseData;
-            const itemsContainer = document.querySelector('.item-list');
-            const paginationLinksContainer = document.getElementById('pagination-links');
+    function fetchAndDisplayProductsNearingExpiry(page = 1) {
+        fetch(`/api/expiry-products/?page=${page}`)
+            .then(response => response.json())
+            .then(responseData => {
+                const { data, total_pages, current_page } = responseData;
+                const itemsContainer = document.querySelector('.item-list');
+                const paginationLinksContainer = document.getElementById('pagination-links');
 
-            // Clear any existing items, except for the header
-            itemsContainer.querySelectorAll('.item:not(.header--items)').forEach(el => el.remove());
-            paginationLinksContainer.innerHTML = '';
+                // Clear any existing items, except for the header
+                itemsContainer.querySelectorAll('.item:not(.header--items)').forEach(el => el.remove());
+                paginationLinksContainer.innerHTML = '';
 
-            // Dynamically create item divs from the response data
-            data.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'item';
-                itemDiv.innerHTML = `
-                    <div class="product-name">
-                        <img src="https://selecthealth.org/blog/2020/02/selecthealth.org/-/media/selecthealth/blogs/post/2022/08/apple_types_blog_lg.jpg" alt="${item.name}">
-                        <div>
-                            <span>${item.name}</span>
+                const categoryImages = {
+                    'Beverages': '/static/img/bev.png',
+                    'Grains': '/static/img/grains.jpg',
+                    'Snacks': '/static/img/snacks.jpg',
+                    'Condiments': '/static/img/condiments.png',
+                    'Canned': '/static/img/canned.jpg',
+                    'Baking': '/static/img/baking.jpg',
+                };
+
+
+                // Dynamically create item divs from the response data
+                data.forEach(item => {
+                    const imagePath = categoryImages[item.category__name] || 'https://selecthealth.org/blog/2020/02/selecthealth.org/-/media/selecthealth/blogs/post/2022/08/apple_types_blog_lg.jpg';
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'item';
+                    itemDiv.innerHTML = `
+                        <div class="product-name">
+                            <img src="${imagePath}" alt="${item.name}">
+                            <div>
+                                <span>${item.name}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="category">${item.category__name}</div>
-                    <div class="quantity">${item.stock_quantity} Pieces</div>
-                    <div class="price">${parseFloat(item.unit_price).toFixed(2)} Rwf</div>
-                    <div class="expiry-date">${new Date(item.expiry_date).toLocaleDateString()}</div>
-                `;
-                itemsContainer.appendChild(itemDiv);
-            });
+                        <div class="category">${item.category__name}</div>
+                        <div class="quantity">${item.stock_quantity} Pieces</div>
+                        <div class="price">${parseFloat(item.unit_price).toFixed(2)} Rwf</div>
+                        <div class="expiry-date">${new Date(item.expiry_date).toLocaleDateString()}</div>
+                    `;
+                    itemsContainer.appendChild(itemDiv);
+                });
 
-            // Dynamically create pagination links
-            for (let i = 1; i <= total_pages; i++) {
-    const pageLink = document.createElement('a');
-    pageLink.href = '#';  // Use '#' to make the anchor clickable without navigating away
-    pageLink.textContent = i;
-    pageLink.className = 'page-link';
-    if (i === page) {
-        pageLink.classList.add('active');  // Add 'active' class to indicate the current page
+                // Dynamically create pagination links
+                for (let i = 1; i <= total_pages; i++) {
+                    const pageLink = document.createElement('a');
+                    pageLink.href = '#';
+                    pageLink.textContent = i;
+                    pageLink.className = 'page-link';
+                    if (i === page) {
+                        pageLink.classList.add('active');
+                    }
+
+                    pageLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        fetchAndDisplayProductsNearingExpiry(i);
+                    });
+
+                    paginationLinksContainer.appendChild(pageLink);
+                }
+
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+        document.addEventListener('DOMContentLoaded', () => fetchAndDisplayProductsNearingExpiry());
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Function to fetch and display analysis and suggestions
+    function fetchAndDisplayAnalysisAndSuggestions() {
+        fetch('/api/analysis/')
+            .then(response => response.json())
+            .then(data => {
+                // Get the elements where analysis and suggestions will be displayed
+                const interpretationTextElement = document.getElementById('interpretationText');
+                const suggestionsListElement = document.getElementById('suggestionsList');
+
+                // Set the fetched analysis to the interpretation text element
+                interpretationTextElement.textContent = data.analysis;
+
+                // Clear existing suggestions list items, if any
+                suggestionsListElement.innerHTML = '';
+
+                 // Split suggestions into list items, remove markdown, and append to the suggestions list
+                const suggestions = data.suggestions.split('\n').filter(line => line.trim().length > 0);
+                
+                suggestions.forEach(suggestion => {
+                    if (suggestion.length > 0) {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = suggestion;
+                        listItem.classList.add('suggestion-item');
+                        suggestionsListElement.appendChild(listItem);
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching analysis and suggestions:', error));
     }
 
-    pageLink.addEventListener('click', (e) => {
-        e.preventDefault();  // Prevent the default anchor link behavior
-        fetchAndDisplayProductsNearingExpiry(i);
-    });
+    // Call the function to fetch and display analysis and suggestions when the page loads
+    fetchAndDisplayAnalysisAndSuggestions();
+});
 
-    paginationLinksContainer.appendChild(pageLink);
-}
-
-        })
-        .catch(error => console.error('Error fetching data:', error));
-}
-document.addEventListener('DOMContentLoaded', () => fetchAndDisplayProductsNearingExpiry());
 </script>
-
-
-
-
 </body>
 </html>

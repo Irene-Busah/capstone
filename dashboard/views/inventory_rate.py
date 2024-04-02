@@ -59,5 +59,5 @@ def get_inventory_and_purchase_rate_by_category():
             "turnover_rate": turnover_rate,
             "purchase_rate": purchase_rate,
         }
-    print(rates_by_category)
+    # print(rates_by_category)
     return rates_by_category

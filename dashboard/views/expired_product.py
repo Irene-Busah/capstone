@@ -58,6 +58,6 @@ def get_expired_products_by_category(request):
             }
         )
 
-    print(data_by_year)
+    # print(data_by_year)
 
     return data_by_year

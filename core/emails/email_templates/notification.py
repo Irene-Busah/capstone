@@ -84,3 +84,36 @@ expired_product_email_content = """
 </body>
 </html>
 """
+
+
+analysis_and_suggestion_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Analysis and Suggestions</title>
+<style>
+    ul {{ padding-left: 20px; }}
+    li {{ margin-bottom: 10px; }}
+</style>
+</head>
+<body style="font-family: Arial, sans-serif;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr>
+    <td style="padding: 20px;">
+        <p>Dear {first_name},</p>
+        <h2>Analysis</h2>
+        <p>{analysis}</p>
+        <h2>Suggestions</h2>
+        <ul>
+            {suggestions}
+        </ul>
+        <p>Best regards,<br/> The MarketPulse Team</p>
+    </td>
+</tr>
+</table>
+</body>
+</html>
+"""

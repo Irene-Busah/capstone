@@ -94,6 +94,11 @@
     height: 1.6rem;
 }
 
+.toggle-buttons input[type="checkbox"]:checked {
+    background-color: #00AF54;
+    border-color: #00AF54;
+}
+
 .settings-actions {
     text-align: right;
     padding: 30px;
@@ -120,4 +125,6 @@
     color: white;
 }
 
-/* Ensure to add :hover effects and more styles as per your design needs */
+.content p, .content ul {
+    padding: 0;
+}

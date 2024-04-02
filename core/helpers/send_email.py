@@ -4,6 +4,7 @@ from core.emails.email_templates.notification import (
     low_stock_email_content,
     nearing_expiry_email_content,
     expired_product_email_content,
+    analysis_and_suggestion_content,
 )
 from core.settings import EMAIL_SERVER_TOKEN
 
@@ -76,3 +77,27 @@ def send_expired_product_email(recipient_email, recipient_name, expired_products
     subject = "Expired Product Notification - MarketPulse Platform"
 
     send_email(recipient_email, subject, formatted_email_content)
+
+
+def send_analysis_and_suggestions_email(
+    recipient_email, recipient_name, analysis, suggestions
+):
+    # Format each suggestion as a list item
+    suggestions_html = "".join(
+        [
+            f"<li>{suggestion}</li>"
+            for suggestion in suggestions.split("\n")
+            if suggestion.strip()
+        ]
+    )
+
+    # Format the HTML content with actual data
+    html_content = analysis_and_suggestion_content.format(
+        first_name=recipient_name, analysis=analysis, suggestions=suggestions_html
+    )
+
+    # Subject for the email
+    subject = "Analysis and Suggestions - MarketPulse Platform"
+
+    # Call the function to send the email
+    send_email(recipient_email, subject, html_content)

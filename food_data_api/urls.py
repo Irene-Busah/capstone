@@ -18,6 +18,7 @@ from .views.notification_settings import notification_settings_page
 from .views.authentication import signup_api, login_api, logout_view
 from .views.notifications import notifications_api
 from .views.inventory_rate import inventory_and_purchase_rate_api
+from .views.analysis import insights_and_suggestions_api
 
 
 urlpatterns = [
@@ -58,4 +59,5 @@ urlpatterns = [
         inventory_and_purchase_rate_api,
         name="inventory-purchase-rate-api",
     ),
+    path("analysis/", insights_and_suggestions_api, name="analysis"),
 ]
